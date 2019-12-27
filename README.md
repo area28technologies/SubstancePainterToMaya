@@ -24,9 +24,11 @@ Supported render engines and materials:
 
 Here the text version for copy+paste :  
 
+```
 from SubstancePainterToMaya import main  
 reload(main)  
 main.SPtoM()
+```
 
 ## New
 

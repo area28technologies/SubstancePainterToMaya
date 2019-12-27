@@ -107,6 +107,16 @@ class PainterToMayaUI:
         )
         self.namingConventionSubLayoutValue.addWidget(self.textureSet)
 
+        # new feature: choose the prefix to ignore
+        self.namePrefixLabel = QtWidgets.QLabel('namePrefix')
+        self.namingConventionSubLayoutLabel.addWidget(self.namePrefixLabel)
+
+        self.namePrefix = QtWidgets.QLineEdit('Type your namePrefix')
+        self.namePrefix.setToolTip(
+            'The namePrefix you want to ignore in the naming convention'
+        )
+        self.namingConventionSubLayoutValue.addWidget(self.namePrefix)
+
         self.mapLabel = QtWidgets.QLabel('map')
         self.namingConventionSubLayoutLabel.addWidget(self.mapLabel)
         self.mapLabel.resize(200,200)
