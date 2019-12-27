@@ -29,6 +29,16 @@ def splitNamingConvention(ui, textures):
     textureSetSeparator = '_'
     mapSeparator = '_'
     textureSet = ui.textureSet.text().encode("ascii")
+
+    # removing prefix from textureSet
+    if ui.namePrefix.text().encode("ascii") is None:
+        namePrefix = ''
+    else:
+        namePrefix = ui.namePrefix.text().encode("ascii")
+        if textureSet.startswith(namePrefix):
+            textureSet = textureSet[(len(namePrefix)):]
+
+
     map = ui.map.text().encode("ascii")
 
     for texture in textures:
