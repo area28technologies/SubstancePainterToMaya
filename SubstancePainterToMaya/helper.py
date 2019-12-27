@@ -23,22 +23,26 @@ def before(value, a):
     if pos_a == -1: return ""
     return value[0:pos_a]
 
+def withoutPrefix(ui):
+    # removing prefix from textureSet
+    textureSet = ui.textureSet.text().encode("ascii")
+    if ui.namePrefix.text().encode("ascii") is None:
+        return ''
+    else:
+        namePrefix = ui.namePrefix.text().encode("ascii")
+        if textureSet.startswith(namePrefix):
+            return textureSet[(len(namePrefix)):]
+
+def appendPrefix(ui, input_str):
+    namePrefix = ui.namePrefix.text().encode("ascii")
+    return ''.join([namePrefix, input_str])
+
 def splitNamingConvention(ui, textures):
 
     construction = []
     textureSetSeparator = '_'
     mapSeparator = '_'
-    textureSet = ui.textureSet.text().encode("ascii")
-
-    # removing prefix from textureSet
-    if ui.namePrefix.text().encode("ascii") is None:
-        namePrefix = ''
-    else:
-        namePrefix = ui.namePrefix.text().encode("ascii")
-        if textureSet.startswith(namePrefix):
-            textureSet = textureSet[(len(namePrefix)):]
-
-
+    textureSet = withoutPrefix(ui)
     map = ui.map.text().encode("ascii")
 
     for texture in textures:
@@ -103,7 +107,7 @@ def listTextures(ui, renderer, foundFiles, allTextureSets):
     for texture in foundFiles:
 
         if not allTextureSets:
-            if not ui.textureSet.text().encode("ascii") in texture:
+            if not withoutPrefix(ui) in texture:
                 continue
 
         # Create the texture path
@@ -142,7 +146,7 @@ def listTextures(ui, renderer, foundFiles, allTextureSets):
                             nameStart += 1
 
                 mapName = name
-                textureSetName = textureSet
+                textureSetName = appendPrefix(ui, textureSet)
 
                 if mapName and textureSetName:
 
